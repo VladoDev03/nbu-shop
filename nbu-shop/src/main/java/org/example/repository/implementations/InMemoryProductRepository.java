@@ -1,24 +1,39 @@
 package org.example.repository.implementations;
 
+import org.example.data.Cashier;
 import org.example.data.Product;
 import org.example.repository.contracts.ProductRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class InMemoryProductRepository implements ProductRepository {
-    @Override
-    public boolean addProduct(Product product) {
-        return false;
+    private final List<Product> products;
+
+    public InMemoryProductRepository() {
+        this.products = new ArrayList<>();
     }
 
     @Override
-    public Product findProductById(String id) {
-        return null;
+    public boolean addProduct(Product product) {
+        boolean notExisting = findProductById(product.getId()).isEmpty();
+
+        if (notExisting) {
+            return false;
+        }
+
+        return products.add(product);
+    }
+
+    @Override
+    public Optional<Product> findProductById(long id) {
+        return products.stream().filter(p -> p.getId() == id).findFirst();
     }
 
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        return new ArrayList<>(products);
     }
 
     @Override

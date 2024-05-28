@@ -5,6 +5,6 @@ import org.example.exceptions.InsufficientQuantityException;
 
 public interface ProductService {
     boolean addProduct(Product product);
-    Product findProductById(String id);
+    Product findProductById(long id);
     boolean sellProduct(String productId, int quantity) throws InsufficientQuantityException;
 }

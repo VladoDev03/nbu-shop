@@ -4,5 +4,5 @@ import org.example.data.Cashier;
 
 public interface CashierService {
     boolean addCashier(Cashier cashier);
-    Cashier findCashierById(String id);
+    Cashier findCashierById(long id);
 }

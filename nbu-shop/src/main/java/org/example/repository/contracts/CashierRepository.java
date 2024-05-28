@@ -3,9 +3,10 @@ package org.example.repository.contracts;
 import org.example.data.Cashier;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CashierRepository {
     boolean addCashier(Cashier cashier);
-    Cashier findCashierById(String id);
+    Optional<Cashier> findCashierById(long id);
     List<Cashier> getAllCashiers();
 }

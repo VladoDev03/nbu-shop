@@ -10,7 +10,7 @@ public class CashierServiceImpl implements CashierService {
     }
 
     @Override
-    public Cashier findCashierById(String id) {
+    public Cashier findCashierById(long id) {
         return null;
     }
 }
