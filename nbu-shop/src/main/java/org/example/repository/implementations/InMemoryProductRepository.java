@@ -17,12 +17,6 @@ public class InMemoryProductRepository implements ProductRepository {
 
     @Override
     public boolean addProduct(Product product) {
-        boolean notExisting = findProductById(product.getId()).isEmpty();
-
-        if (notExisting) {
-            return false;
-        }
-
         return products.add(product);
     }
 

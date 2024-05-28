@@ -16,12 +16,6 @@ public class InMemoryCashierRepository implements CashierRepository {
 
     @Override
     public boolean addCashier(Cashier cashier) {
-        boolean notExisting = findCashierById(cashier.getId()).isEmpty();
-
-        if (notExisting) {
-            return false;
-        }
-
         return cashiers.add(cashier);
     }
 
