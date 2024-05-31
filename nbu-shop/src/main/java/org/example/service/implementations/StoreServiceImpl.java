@@ -6,6 +6,7 @@ import org.example.data.Receipt;
 import org.example.exceptions.InsufficientQuantityException;
 import org.example.repository.contracts.ProductRepository;
 import org.example.repository.contracts.StoreRepository;
+import org.example.service.contracts.ReceiptService;
 import org.example.service.contracts.StoreService;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class StoreServiceImpl implements StoreService {
     private final double discountPercentage;
     private final ProductRepository productRepo;
     private final StoreRepository storeRepo;
+    private ReceiptService receiptService;
 
     public StoreServiceImpl(
             double foodMarkup,
@@ -26,7 +28,8 @@ public class StoreServiceImpl implements StoreService {
             int daysBeforeExpiryForDiscount,
             double discountPercentage,
             ProductRepository productRepo,
-            StoreRepository storeRepo
+            StoreRepository storeRepo,
+            ReceiptService receiptService
     ) {
         this.foodMarkup = foodMarkup;
         this.nonFoodMarkup = nonFoodMarkup;
@@ -34,6 +37,7 @@ public class StoreServiceImpl implements StoreService {
         this.discountPercentage = discountPercentage;
         this.productRepo = productRepo;
         this.storeRepo = storeRepo;
+        this.receiptService = receiptService;
     }
 
     @Override
@@ -43,18 +47,27 @@ public class StoreServiceImpl implements StoreService {
                 if (product.getQuantity() < quantity) {
                     throw new InsufficientQuantityException(product.getName(), quantity - product.getQuantity());
                 }
+
                 if (product.getIsExpired()) {
                     throw new IllegalStateException("Product " + product.getName() + " is expired.");
                 }
+
                 List<Product> soldItems = new ArrayList<>();
                 soldItems.add(new Product(product.getId(), product.getName(), product.getPurchasePrice(), product.getCategory(), product.getExpiryDate(), quantity));
+
                 double totalAmount = soldItems.stream().mapToDouble(p -> p.getSellingPrice(foodMarkup, nonFoodMarkup, daysBeforeExpiryForDiscount, discountPercentage) * p.getQuantity()).sum();
+
                 storeRepo.addReceipt(new Receipt(cashier, soldItems, totalAmount));
                 product.setQuantity(product.getQuantity() - quantity);
+
+                Receipt receipt = new Receipt(cashier, soldItems, totalAmount);
+                storeRepo.addReceipt(receipt);
+                receiptService.saveToFile(receipt);
 
                 return true;
             }
         }
+
         throw new NoSuchElementException("Product with ID " + productId + " not found.");
     }
 
