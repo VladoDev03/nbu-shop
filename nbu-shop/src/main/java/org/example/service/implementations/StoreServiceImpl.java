@@ -13,24 +13,27 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class StoreServiceImpl implements StoreService {
-    private List<Product> products;
-    private List<Cashier> cashiers;
-    private List<Receipt> receipts;
-    private double foodMarkup;
-    private double nonFoodMarkup;
-    private int daysBeforeExpiryForDiscount;
-    private double discountPercentage;
-    private ProductRepository productRepo;
+    private final double foodMarkup;
+    private final double nonFoodMarkup;
+    private final int daysBeforeExpiryForDiscount;
+    private final double discountPercentage;
+    private final ProductRepository productRepo;
+    private final StoreRepository storeRepo;
 
-    public StoreServiceImpl(double foodMarkup, double nonFoodMarkup, int daysBeforeExpiryForDiscount, double discountPercentage, ProductRepository productRepo) {
-        this.products = new ArrayList<>();
-        this.cashiers = new ArrayList<>();
-        this.receipts = new ArrayList<>();
+    public StoreServiceImpl(
+            double foodMarkup,
+            double nonFoodMarkup,
+            int daysBeforeExpiryForDiscount,
+            double discountPercentage,
+            ProductRepository productRepo,
+            StoreRepository storeRepo
+    ) {
         this.foodMarkup = foodMarkup;
         this.nonFoodMarkup = nonFoodMarkup;
         this.daysBeforeExpiryForDiscount = daysBeforeExpiryForDiscount;
         this.discountPercentage = discountPercentage;
         this.productRepo = productRepo;
+        this.storeRepo = storeRepo;
     }
 
     @Override
@@ -46,8 +49,9 @@ public class StoreServiceImpl implements StoreService {
                 List<Product> soldItems = new ArrayList<>();
                 soldItems.add(new Product(product.getId(), product.getName(), product.getPurchasePrice(), product.getCategory(), product.getExpiryDate(), quantity));
                 double totalAmount = soldItems.stream().mapToDouble(p -> p.getSellingPrice(foodMarkup, nonFoodMarkup, daysBeforeExpiryForDiscount, discountPercentage) * p.getQuantity()).sum();
-                receipts.add(new Receipt(cashier, soldItems, totalAmount));
+                storeRepo.addReceipt(new Receipt(cashier, soldItems, totalAmount));
                 product.setQuantity(product.getQuantity() - quantity);
+
                 return true;
             }
         }
@@ -56,11 +60,11 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public int getTotalReceiptsCount() {
-        return receipts.size();
+        return storeRepo.getAllReceipts().size();
     }
 
     @Override
     public double getTotalRevenue() {
-        return receipts.stream().mapToDouble(Receipt::getTotalAmount).sum();
+        return storeRepo.getAllReceipts().stream().mapToDouble(Receipt::getTotalAmount).sum();
     }
 }
