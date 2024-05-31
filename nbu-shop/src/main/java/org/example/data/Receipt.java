@@ -1,9 +1,14 @@
 package org.example.data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Receipt {
+    public Receipt() {
+        items = new ArrayList<>();
+    }
+
     private long id;
     private Cashier cashier;
     private LocalDateTime dateTime;
@@ -12,5 +17,21 @@ public class Receipt {
 
     public long getId() {
         return id;
+    }
+
+    public List<Product> getItems() {
+        return items;
+    }
+
+    public Cashier getCashier() {
+        return cashier;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
     }
 }

@@ -15,4 +15,24 @@ public class Product {
     public long getId() {
         return id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPurchasePrice() {
+        return purchasePrice;
+    }
+
+    public ProductCategory getCategory() {
+        return category;
+    }
+
+    public LocalDate getExpiryDate() {
+        return expiryDate;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }
