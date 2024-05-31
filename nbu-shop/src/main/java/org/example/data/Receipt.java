@@ -9,6 +9,12 @@ public class Receipt {
         items = new ArrayList<>();
     }
 
+    public Receipt(Cashier cashier, List<Product> items, double totalAmount) {
+        this.cashier = cashier;
+        this.items = items;
+        this.totalAmount = totalAmount;
+    }
+
     private long id;
     private Cashier cashier;
     private LocalDateTime dateTime;

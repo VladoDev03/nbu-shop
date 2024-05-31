@@ -12,6 +12,15 @@ public class Product {
     private LocalDate expiryDate;
     private int quantity;
 
+    public Product(long id, String name, double purchasePrice, ProductCategory category, LocalDate expiryDate, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.purchasePrice = purchasePrice;
+        this.category = category;
+        this.expiryDate = expiryDate;
+        this.quantity = quantity;
+    }
+
     public long getId() {
         return id;
     }
@@ -34,5 +43,22 @@ public class Product {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getSellingPrice(double foodMarkup, double nonFoodMarkup, int daysBeforeExpiryForDiscount, double discountPercentage) {
+        double markup = (category == ProductCategory.FOOD) ? foodMarkup : nonFoodMarkup;
+        double sellingPrice = purchasePrice * (1 + markup / 100);
+        if (expiryDate.isBefore(LocalDate.now().plusDays(daysBeforeExpiryForDiscount))) {
+            sellingPrice *= (1 - discountPercentage / 100);
+        }
+        return sellingPrice;
+    }
+
+    public boolean getIsExpired() {
+        return LocalDate.now().isAfter(expiryDate);
     }
 }
