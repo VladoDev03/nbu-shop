@@ -18,10 +18,10 @@ public class CashierServiceImpl implements CashierService {
         boolean notExisting = repo.findCashierById(cashier.getId()).isEmpty();
 
         if (notExisting) {
-            return false;
+            return repo.addCashier(cashier);
         }
 
-        return repo.addCashier(cashier);
+        return false;
     }
 
     @Override

@@ -19,10 +19,10 @@ public class ProductServiceImpl implements ProductService {
         boolean notExisting = repo.findProductById(product.getId()).isEmpty();
 
         if (notExisting) {
-            return false;
+            return repo.addProduct(product);
         }
 
-        return repo.addProduct(product);
+        return false;
     }
 
     @Override

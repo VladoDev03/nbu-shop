@@ -1,6 +1,11 @@
 package org.example.core;
 
+import org.example.data.Cashier;
 import org.example.enums.IOType;
+import org.example.repository.contracts.CashierRepository;
+import org.example.repository.implementations.InMemoryCashierRepository;
+import org.example.service.contracts.CashierService;
+import org.example.service.implementations.CashierServiceImpl;
 
 import java.util.Scanner;
 
@@ -28,5 +33,8 @@ public class Engine {
         System.out.println("You've selected the following input and output...");
         System.out.println("Input: " + input);
         System.out.println("Output: " + output);
+
+        System.out.println("-------Commands-------");
+        System.out.println("1. Sell product by id");
     }
 }
