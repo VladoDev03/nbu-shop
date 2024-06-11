@@ -25,7 +25,7 @@ public class CashierServiceImpl implements CashierService {
     }
 
     @Override
-    public Optional<Cashier> findCashierById(long id) {
+    public Optional<Cashier> findCashierById(String id) {
         return repo.findCashierById(id);
     }
 }

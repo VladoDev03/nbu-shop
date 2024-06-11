@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface ProductService {
     boolean addProduct(Product product);
-    Optional<Product> findProductById(long id);
+    Optional<Product> findProductById(String id);
     boolean sellProduct(String productId, int quantity) throws InsufficientQuantityException;
 }

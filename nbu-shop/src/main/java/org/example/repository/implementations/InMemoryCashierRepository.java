@@ -20,8 +20,8 @@ public class InMemoryCashierRepository implements CashierRepository {
     }
 
     @Override
-    public Optional<Cashier> findCashierById(long id) {
-        return cashiers.stream().filter(c -> c.getId() == id).findFirst();
+    public Optional<Cashier> findCashierById(String id) {
+        return cashiers.stream().filter(c -> c.getId().equals(id)).findFirst();
     }
 
     @Override

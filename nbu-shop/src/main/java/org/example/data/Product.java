@@ -5,14 +5,14 @@ import org.example.enums.ProductCategory;
 import java.time.LocalDate;
 
 public class Product {
-    private long id;
+    private String id;
     private String name;
     private double purchasePrice;
     private ProductCategory category;
     private LocalDate expiryDate;
     private int quantity;
 
-    public Product(long id, String name, double purchasePrice, ProductCategory category, LocalDate expiryDate, int quantity) {
+    public Product(String id, String name, double purchasePrice, ProductCategory category, LocalDate expiryDate, int quantity) {
         this.id = id;
         this.name = name;
         this.purchasePrice = purchasePrice;
@@ -21,7 +21,7 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

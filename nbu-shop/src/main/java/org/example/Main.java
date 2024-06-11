@@ -1,35 +1,75 @@
 package org.example;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
+import org.example.core.Engine;
+import org.example.data.Cashier;
 import org.example.enums.IOType;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("---------------------------------------------------------------------------------------");
         System.out.println("Welcome to NBU shop. Vladimir's Course Project for course CITB408 Програмиране на Java!");
         System.out.println("---------------------------------------------------------------------------------------");
 
-        Scanner scanner = new Scanner(System.in);
+//        Engine engine = new Engine();
+//        engine.run();
 
-        System.out.println("1: Input through console");
-        System.out.println("2: Input through file");
-        System.out.println("3: Input through CSV");
-        System.out.println("4: Input through JSON");
-        System.out.print("Your choice: ");
-        int inputChoice = scanner.nextInt();
+        // Write Json
+//        Cashier cashier = new Cashier("Joe", 12000);
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.writeValue(new File("files/cashier.json"), cashier);
+//        String jsonString = mapper.writeValueAsString(cashier);
 
-        System.out.println("1: Output through console");
-        System.out.println("2: Output through file");
-        System.out.println("3: Output through CSV");
-        System.out.println("4: Output through JSON");
-        System.out.print("Your choice: ");
-        int outputChoice = scanner.nextInt();
+//        Cashier cashier = new Cashier("Joe", 12000);
+//
+//        // Write CSV
+//        try (Writer writer = new FileWriter("files/cashier.csv")) {
+//            CSVPrinter printer = new CSVPrinter(writer, CSVFormat.DEFAULT);
+//            printer.printRecord("Id", "Name", "Monthly Salary");
+//            printer.printRecord(Arrays.asList(cashier.getId(), cashier.getName(), cashier.getMonthlySalary()));
+//        }
 
-        IOType input = IOType.fromChoice(inputChoice);
-        IOType output = IOType.fromChoice(outputChoice);
+        // Read CSV
+//        try (FileReader fis = new FileReader("files/cashier.csv")) {
+//            BufferedReader bufferedReader = new BufferedReader(fis);
+//            String line;
+//
+//            List<Cashier> cashiers = new ArrayList<>();
+//
+//            while ((line = bufferedReader.readLine()) != null) {
+//                String[] props = line.split(",");
+//
+//                double salary = 0;
+//
+//                try {
+//                    salary = Double.parseDouble(props[2]);
+//                } catch (NumberFormatException ex) {
+//                    continue;
+//                }
+//
+//                Cashier cashier = new Cashier(props[0], props[1], salary);
+//                cashiers.add(cashier);
+//            }
+//
+//            cashiers.forEach(c -> System.out.println(c.getName()));
+//        }
 
-        System.out.println("Input: " + input);
-        System.out.println("Output: " + output);
+        // Read Json
+//        ObjectMapper mapper = new ObjectMapper();
+//        Cashier cashier = new Cashier("Joe", 12000);
+//        String jsonString = mapper.writeValueAsString(cashier);
+//        JsonNode node = mapper.readTree(jsonString);
+//        System.out.println(node.get("name").asText());
     }
 }

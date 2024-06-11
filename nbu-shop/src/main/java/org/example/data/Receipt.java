@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Receipt {
+    private String id;
+    private Cashier cashier;
+    private LocalDateTime dateTime;
+    private List<Product> items;
+    private double totalAmount;
+
     public Receipt() {
         items = new ArrayList<>();
     }
@@ -15,13 +21,7 @@ public class Receipt {
         this.totalAmount = totalAmount;
     }
 
-    private long id;
-    private Cashier cashier;
-    private LocalDateTime dateTime;
-    private List<Product> items;
-    private double totalAmount;
-
-    public long getId() {
+    public String getId() {
         return id;
     }
 

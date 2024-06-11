@@ -41,9 +41,9 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public boolean sellProduct(Cashier cashier, long productId, int quantity) throws InsufficientQuantityException {
+    public boolean sellProduct(Cashier cashier, String productId, int quantity) throws InsufficientQuantityException {
         for (Product product : productRepo.getAllProducts()) {
-            if (product.getId() == productId) {
+            if (product.getId().equals(productId)) {
                 if (product.getQuantity() < quantity) {
                     throw new InsufficientQuantityException(product.getName(), quantity - product.getQuantity());
                 }

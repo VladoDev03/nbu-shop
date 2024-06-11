@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface CashierRepository {
     boolean addCashier(Cashier cashier);
-    Optional<Cashier> findCashierById(long id);
+    Optional<Cashier> findCashierById(String id);
     List<Cashier> getAllCashiers();
 }

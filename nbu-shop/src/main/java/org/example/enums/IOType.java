@@ -19,6 +19,7 @@ public enum IOType {
                 return type;
             }
         }
+
         return Console;
     }
 }

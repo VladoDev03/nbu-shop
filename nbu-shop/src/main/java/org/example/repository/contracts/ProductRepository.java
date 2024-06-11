@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ProductRepository {
     boolean addProduct(Product product);
-    Optional<Product> findProductById(long id);
+    Optional<Product> findProductById(String id);
     List<Product> getAllProducts();
     boolean updateProduct(Product product);
 }
