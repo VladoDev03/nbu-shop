@@ -1,8 +1,10 @@
 package org.example.data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Receipt {
     private String id;
@@ -15,10 +17,12 @@ public class Receipt {
         items = new ArrayList<>();
     }
 
-    public Receipt(Cashier cashier, List<Product> items, double totalAmount) {
+    public Receipt(Cashier cashier, List<Product> items, double totalAmount, LocalDateTime dateTime) {
+        this.id = UUID.randomUUID().toString();
         this.cashier = cashier;
         this.items = items;
         this.totalAmount = totalAmount;
+        this.dateTime = dateTime;
     }
 
     public String getId() {
@@ -39,5 +43,31 @@ public class Receipt {
 
     public double getTotalAmount() {
         return totalAmount;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(id).append(System.lineSeparator());
+        sb.append(cashier.getName()).append(System.lineSeparator());
+
+        sb
+                .append("at ")
+                .append(dateTime.getHour())
+                .append(":")
+                .append(dateTime.getMinute())
+                .append(System.lineSeparator())
+                .append("on ")
+                .append(dateTime.getDayOfMonth())
+                .append(" ")
+                .append(dateTime.getMonth())
+                .append(System.lineSeparator());
+
+        items.forEach(i -> sb.append(i.getName()).append(" -> ").append(i.getQuantity()));
+        sb.append(System.lineSeparator());
+        sb.append(totalAmount).append(System.lineSeparator());
+
+        return sb.toString();
     }
 }

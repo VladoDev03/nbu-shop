@@ -3,6 +3,7 @@ package org.example.data;
 import org.example.enums.ProductCategory;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Product {
     private String id;
@@ -11,6 +12,15 @@ public class Product {
     private ProductCategory category;
     private LocalDate expiryDate;
     private int quantity;
+
+    public Product(String name, double purchasePrice, ProductCategory category, LocalDate expiryDate, int quantity) {
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.purchasePrice = purchasePrice;
+        this.category = category;
+        this.expiryDate = expiryDate;
+        this.quantity = quantity;
+    }
 
     public Product(String id, String name, double purchasePrice, ProductCategory category, LocalDate expiryDate, int quantity) {
         this.id = id;

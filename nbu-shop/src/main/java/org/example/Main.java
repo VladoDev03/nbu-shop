@@ -6,8 +6,13 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.example.core.Engine;
 import org.example.data.Cashier;
+import org.example.data.Product;
+import org.example.data.Receipt;
+import org.example.enums.ProductCategory;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +23,15 @@ public class Main {
         System.out.println("Welcome to NBU shop. Vladimir's Course Project for course CITB408 Програмиране на Java!");
         System.out.println("---------------------------------------------------------------------------------------");
 
-        Engine engine = new Engine();
-        engine.run();
+//        Engine engine = new Engine();
+//        engine.run();
+
+        Cashier cashier = new Cashier("Joe", 12000);
+        Product product = new Product("asd", "asd", 12, ProductCategory.FOOD, LocalDate.now(), 10);
+        ArrayList<Product> products = new ArrayList<>();
+        products.add(product);
+        Receipt receipt = new Receipt(cashier, products, 100, LocalDateTime.now());
+        System.out.println(receipt.toString());
 
 //         Write Json
 //        Cashier cashier = new Cashier("Joe", 12000);

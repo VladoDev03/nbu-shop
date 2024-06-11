@@ -9,6 +9,7 @@ import org.example.repository.contracts.StoreRepository;
 import org.example.service.contracts.ReceiptService;
 import org.example.service.contracts.StoreService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -57,10 +58,10 @@ public class StoreServiceImpl implements StoreService {
 
                 double totalAmount = soldItems.stream().mapToDouble(p -> p.getSellingPrice(foodMarkup, nonFoodMarkup, daysBeforeExpiryForDiscount, discountPercentage) * p.getQuantity()).sum();
 
-                storeRepo.addReceipt(new Receipt(cashier, soldItems, totalAmount));
+                storeRepo.addReceipt(new Receipt(cashier, soldItems, totalAmount, LocalDateTime.now()));
                 product.setQuantity(product.getQuantity() - quantity);
 
-                Receipt receipt = new Receipt(cashier, soldItems, totalAmount);
+                Receipt receipt = new Receipt(cashier, soldItems, totalAmount, LocalDateTime.now());
                 storeRepo.addReceipt(receipt);
                 receiptService.saveToFile(receipt);
 
