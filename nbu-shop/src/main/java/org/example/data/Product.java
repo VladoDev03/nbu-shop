@@ -62,6 +62,7 @@ public class Product {
     public double getSellingPrice(double foodMarkup, double nonFoodMarkup, int daysBeforeExpiryForDiscount, double discountPercentage) {
         double markup = (category == ProductCategory.FOOD) ? foodMarkup : nonFoodMarkup;
         double sellingPrice = purchasePrice * (1 + markup / 100);
+
         if (expiryDate.isBefore(LocalDate.now().plusDays(daysBeforeExpiryForDiscount))) {
             sellingPrice *= (1 - discountPercentage / 100);
         }
@@ -69,6 +70,27 @@ public class Product {
     }
 
     public boolean getIsExpired() {
-        return LocalDate.now().isAfter(expiryDate);
+        if (getCategory() == ProductCategory.FOOD) {
+            return LocalDate.now().isAfter(expiryDate);
+        }
+
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Id: ").append(getId()).append(System.lineSeparator());
+        sb.append("Name: ").append(getName()).append(System.lineSeparator());
+        sb.append("Quantity: ").append(getQuantity()).append(System.lineSeparator());
+        sb.append("Purchase price: ").append(getPurchasePrice()).append(System.lineSeparator());
+
+        if (category.equals(ProductCategory.FOOD)) {
+            sb.append("Expiry date: ").append(getExpiryDate()).append(System.lineSeparator());
+            sb.append("Is expired: ").append(getIsExpired()).append(System.lineSeparator());
+        }
+
+        return sb.toString();
     }
 }

@@ -58,11 +58,9 @@ public class StoreServiceImpl implements StoreService {
 
                 double totalAmount = soldItems.stream().mapToDouble(p -> p.getSellingPrice(foodMarkup, nonFoodMarkup, daysBeforeExpiryForDiscount, discountPercentage) * p.getQuantity()).sum();
 
-                storeRepo.addReceipt(new Receipt(cashier, soldItems, totalAmount, LocalDateTime.now()));
-                product.setQuantity(product.getQuantity() - quantity);
-
                 Receipt receipt = new Receipt(cashier, soldItems, totalAmount, LocalDateTime.now());
                 storeRepo.addReceipt(receipt);
+                product.setQuantity(product.getQuantity() - quantity);
                 receiptService.saveToFile(receipt);
 
                 return true;

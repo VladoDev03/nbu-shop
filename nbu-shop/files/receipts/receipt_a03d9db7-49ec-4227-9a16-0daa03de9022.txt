@@ -1,0 +1,6 @@
+Receipt ID: a03d9db7-49ec-4227-9a16-0daa03de9022
+Cashier: Joe
+Date and Time: 2024-06-12T17:38:45.913312200
+Items:
+ - Sandwich x 3 @ 3.0 each
+Total Amount: 9.166500000000001

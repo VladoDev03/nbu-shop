@@ -5,6 +5,7 @@ import org.example.exceptions.InsufficientQuantityException;
 import org.example.repository.contracts.ProductRepository;
 import org.example.service.contracts.ProductService;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ProductServiceImpl implements ProductService {
@@ -31,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean sellProduct(String productId, int quantity) throws InsufficientQuantityException {
-        return false;
+    public List<Product> getAllProducts() {
+        return repo.getAllProducts();
     }
 }

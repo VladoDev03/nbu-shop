@@ -52,78 +52,15 @@ public class Main {
         CashierService cashierService = new CashierServiceImpl(cashierRepository);
         ProductService productService = new ProductServiceImpl(productRepository);
         ReceiptService receiptService = new ReceiptServiceImpl();
-        StoreService storeService = new StoreServiceImpl(1, 1, 10, 3, productRepository, storeRepository, receiptService);
+        StoreService storeService = new StoreServiceImpl(5, 5, 10, 3, productRepository, storeRepository, receiptService);
 
         // Initializing program engine
         Engine engine = new Engine(
                 ioFactory,
                 cashierService,
                 productService,
-                receiptService,
                 storeService);
 
         engine.run();
-
-//        Cashier cashier = new Cashier("Joe", 12000);
-//        Product product = new Product("asd", "asd", 12, ProductCategory.FOOD, LocalDate.now(), 10);
-//        ArrayList<Product> products = new ArrayList<>();
-//        products.add(product);
-//        Receipt receipt = new Receipt(cashier, products, 100, LocalDateTime.now());
-//        System.out.println(receipt.toString());
-//
-//        ProductRepository productRepo = new InMemoryProductRepository();
-//        productRepo.addProduct(product);
-//        StoreRepository storeRepo = new InMemoryStoreRepository();
-//        ReceiptService receiptService = new ReceiptServiceImpl();
-//        StoreService serv = new StoreServiceImpl(1, 1, 10, 3, productRepo, storeRepo, receiptService);
-//        serv.sellProduct(cashier, product.getId(), 2);
-//        System.out.println(product.getQuantity());
-
-//         Write Json
-//        Cashier cashier = new Cashier("Joe", 12000);
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.writeValue(new File("files/cashier.json"), cashier);
-//        String jsonString = mapper.writeValueAsString(cashier);
-//
-//        Cashier cashier = new Cashier("Joe", 12000);
-
-        // Write CSV
-//        try (Writer writer = new FileWriter("files/cashier.csv")) {
-//            CSVPrinter printer = new CSVPrinter(writer, CSVFormat.DEFAULT);
-//            printer.printRecord("Id", "Name", "Monthly Salary");
-//            printer.printRecord(Arrays.asList(cashier.getId(), cashier.getName(), cashier.getMonthlySalary()));
-//        }
-
-//         Read CSV
-//        try (FileReader fis = new FileReader("files/cashier.csv")) {
-//            BufferedReader bufferedReader = new BufferedReader(fis);
-//            String line;
-//
-//            List<Cashier> cashiers = new ArrayList<>();
-//
-//            while ((line = bufferedReader.readLine()) != null) {
-//                String[] props = line.split(",");
-//
-//                double salary = 0;
-//
-//                try {
-//                    salary = Double.parseDouble(props[2]);
-//                } catch (NumberFormatException ex) {
-//                    continue;
-//                }
-//
-//                Cashier cashier = new Cashier(props[0], props[1], salary);
-//                cashiers.add(cashier);
-//            }
-//
-//            cashiers.forEach(c -> System.out.println(c.getName()));
-//        }
-
-//         Read Json
-//        ObjectMapper mapper = new ObjectMapper();
-//        Cashier cashier = new Cashier("Joe", 12000);
-//        String jsonString = mapper.writeValueAsString(cashier);
-//        JsonNode node = mapper.readTree(jsonString);
-//        System.out.println(node.get("name").asText());
     }
 }
