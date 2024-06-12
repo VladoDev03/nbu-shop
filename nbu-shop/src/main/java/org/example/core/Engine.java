@@ -1,11 +1,6 @@
 package org.example.core;
 
-import org.example.data.Cashier;
 import org.example.enums.IOType;
-import org.example.repository.contracts.CashierRepository;
-import org.example.repository.implementations.InMemoryCashierRepository;
-import org.example.service.contracts.CashierService;
-import org.example.service.implementations.CashierServiceImpl;
 
 import java.util.Scanner;
 
@@ -34,7 +29,46 @@ public class Engine {
         System.out.println("Input: " + input);
         System.out.println("Output: " + output);
 
-        System.out.println("-------Commands-------");
-        System.out.println("1. Sell product by id");
+        int commandChoice = 0;
+        boolean isRunning = true;
+
+        do {
+            System.out.println("-------Commands-------");
+            System.out.println("1. Sell product by id");
+            System.out.println("2. Add new product");
+            System.out.println("3. Employ new cashier");
+            System.out.println("4. See total salaries");
+            System.out.println("5. See earnings");
+            System.out.println("6. Receipts count");
+            System.out.println("0. End program");
+            commandChoice = scanner.nextInt();
+
+            switch (commandChoice) {
+                case 0:
+                    isRunning = false;
+                    break;
+                case 1:
+                    System.out.println("Sell");
+                    break;
+                case 2:
+                    System.out.println("New Product");
+                    break;
+                case 3:
+                    System.out.println("New Cashier");
+                    break;
+                case 4:
+                    System.out.println("Salaries");
+                    break;
+                case 5:
+                    System.out.println("Earnings");
+                    break;
+                case 6:
+                    System.out.println("Receipts");
+                    break;
+                default:
+                    System.out.println("PLease choose a command between 1 and 3.");
+                    break;
+            }
+        } while (isRunning);
     }
 }

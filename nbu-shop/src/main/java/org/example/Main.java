@@ -9,6 +9,15 @@ import org.example.data.Cashier;
 import org.example.data.Product;
 import org.example.data.Receipt;
 import org.example.enums.ProductCategory;
+import org.example.exceptions.InsufficientQuantityException;
+import org.example.repository.contracts.ProductRepository;
+import org.example.repository.contracts.StoreRepository;
+import org.example.repository.implementations.InMemoryProductRepository;
+import org.example.repository.implementations.InMemoryStoreRepository;
+import org.example.service.contracts.ReceiptService;
+import org.example.service.contracts.StoreService;
+import org.example.service.implementations.ReceiptServiceImpl;
+import org.example.service.implementations.StoreServiceImpl;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -18,20 +27,28 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InsufficientQuantityException {
         System.out.println("---------------------------------------------------------------------------------------");
         System.out.println("Welcome to NBU shop. Vladimir's Course Project for course CITB408 Програмиране на Java!");
         System.out.println("---------------------------------------------------------------------------------------");
 
-//        Engine engine = new Engine();
-//        engine.run();
+        Engine engine = new Engine();
+        engine.run();
 
-        Cashier cashier = new Cashier("Joe", 12000);
-        Product product = new Product("asd", "asd", 12, ProductCategory.FOOD, LocalDate.now(), 10);
-        ArrayList<Product> products = new ArrayList<>();
-        products.add(product);
-        Receipt receipt = new Receipt(cashier, products, 100, LocalDateTime.now());
-        System.out.println(receipt.toString());
+//        Cashier cashier = new Cashier("Joe", 12000);
+//        Product product = new Product("asd", "asd", 12, ProductCategory.FOOD, LocalDate.now(), 10);
+//        ArrayList<Product> products = new ArrayList<>();
+//        products.add(product);
+//        Receipt receipt = new Receipt(cashier, products, 100, LocalDateTime.now());
+//        System.out.println(receipt.toString());
+//
+//        ProductRepository productRepo = new InMemoryProductRepository();
+//        productRepo.addProduct(product);
+//        StoreRepository storeRepo = new InMemoryStoreRepository();
+//        ReceiptService receiptService = new ReceiptServiceImpl();
+//        StoreService serv = new StoreServiceImpl(1, 1, 10, 3, productRepo, storeRepo, receiptService);
+//        serv.sellProduct(cashier, product.getId(), 2);
+//        System.out.println(product.getQuantity());
 
 //         Write Json
 //        Cashier cashier = new Cashier("Joe", 12000);
