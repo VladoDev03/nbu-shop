@@ -1,13 +1,11 @@
 package org.example.core;
 
+import org.example.data.Cashier;
 import org.example.enums.IOType;
 import org.example.exceptions.InvalidIOType;
 import org.example.factory.IOFactory;
 import org.example.io.contracts.ProgramInput;
 import org.example.io.contracts.ProgramOutput;
-import org.example.repository.contracts.CashierRepository;
-import org.example.repository.contracts.ProductRepository;
-import org.example.repository.contracts.StoreRepository;
 import org.example.service.contracts.CashierService;
 import org.example.service.contracts.ProductService;
 import org.example.service.contracts.ReceiptService;
@@ -44,14 +42,14 @@ public class Engine {
         System.out.println("3: Input through CSV");
         System.out.println("4: Input through JSON");
         System.out.print("Your choice: ");
-        int inputChoice = scanner.nextInt();
+        int inputChoice = Integer.parseInt(scanner.nextLine());
 
         System.out.println("1: Output through console");
         System.out.println("2: Output through file");
         System.out.println("3: Output through CSV");
         System.out.println("4: Output through JSON");
         System.out.print("Your choice: ");
-        int outputChoice = scanner.nextInt();
+        int outputChoice = Integer.parseInt(scanner.nextLine());
 
         IOType inputType = IOType.fromChoice(inputChoice);
         IOType outputType = IOType.fromChoice(outputChoice);
@@ -75,7 +73,7 @@ public class Engine {
             System.out.println("5. See revenue");
             System.out.println("6. Receipts count");
             System.out.println("0. End program");
-            commandChoice = scanner.nextInt();
+            commandChoice = Integer.parseInt(scanner.nextLine());
 
             switch (commandChoice) {
                 case 0:
@@ -88,7 +86,7 @@ public class Engine {
                     System.out.println("New Product");
                     break;
                 case 3:
-                    System.out.println("New Cashier");
+                    employNewCashier(scanner);
                     break;
                 case 4:
                     System.out.println("The total cashier salary is: " + cashierService.getTotalCashierSalary() + "$");
@@ -104,5 +102,33 @@ public class Engine {
                     break;
             }
         } while (isRunning);
+    }
+
+    private void employNewCashier(Scanner scanner) {
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                System.out.println("Enter cashier details: {name} {monthly salary}");
+                String cashierInput = scanner.nextLine();
+                String[] params = cashierInput.split(" ");
+
+                if (params.length != 2) {
+                    throw new IllegalArgumentException("Invalid input format. Please enter name and monthly salary separated by a space.");
+                }
+
+                String name = params[0];
+                double salary = Double.parseDouble(params[1]);
+
+                Cashier cashier = new Cashier(name, salary);
+                cashierService.addCashier(cashier);
+                validInput = true;
+
+                System.out.println("Cashier added successfully.");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid salary format. Please enter a valid number for the salary.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

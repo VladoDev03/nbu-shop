@@ -8,7 +8,7 @@ import org.example.service.contracts.ProductService;
 import java.util.Optional;
 
 public class ProductServiceImpl implements ProductService {
-    private ProductRepository repo;
+    private final ProductRepository repo;
 
     public ProductServiceImpl(ProductRepository repo) {
         this.repo = repo;
