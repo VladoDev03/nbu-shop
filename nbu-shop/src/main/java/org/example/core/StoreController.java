@@ -6,6 +6,7 @@ import org.example.enums.ProductCategory;
 import org.example.exceptions.InsufficientQuantityException;
 import org.example.service.contracts.CashierService;
 import org.example.service.contracts.ProductService;
+import org.example.service.contracts.ReceiptService;
 import org.example.service.contracts.StoreService;
 
 import java.time.LocalDate;
@@ -17,11 +18,13 @@ public class StoreController {
     private final ProductService productService;
     private final CashierService cashierService;
     private final StoreService storeService;
+    private final ReceiptService receiptService;
 
-    public StoreController(ProductService productService, CashierService cashierService, StoreService storeService) {
+    public StoreController(ProductService productService, CashierService cashierService, StoreService storeService, ReceiptService receiptService) {
         this.productService = productService;
         this.cashierService = cashierService;
         this.storeService = storeService;
+        this.receiptService = receiptService;
     }
 
     public void sellProduct(Scanner scanner) {
@@ -41,17 +44,13 @@ public class StoreController {
                 String pId = params[1];
                 int quantity = Integer.parseInt(params[2]);
 
-                 Optional<Cashier> cashier = cashierService.findCashierById(cId);
+                Optional<Cashier> cashier = cashierService.findCashierById(cId);
 
-                 if (cashier.isPresent()) {
-                     storeService.sellProduct(cashier.get(), pId, quantity);
-                     validInput = true;
-                     System.out.println("Product sold successfully");
-                 } else {
-                     System.out.println("Cashier with ID " + cId + " not found.");
-                 }
+                storeService.sellProduct(cashier.get(), pId, quantity);
 
                 validInput = true;
+
+                System.out.println("Product sold successfully");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input format. Please enter ids and quantity separated by a space.");
             } catch (IllegalArgumentException e) {
@@ -153,5 +152,9 @@ public class StoreController {
 
     public void showCashiers() {
         cashierService.getAllCashiers().forEach(System.out::println);
+    }
+
+    public void showReceipts() {
+        storeService.getAllReceipts().forEach(System.out::println);
     }
 }

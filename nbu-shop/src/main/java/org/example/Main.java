@@ -59,7 +59,9 @@ public class Main {
                 ioFactory,
                 cashierService,
                 productService,
-                storeService);
+                storeService,
+                receiptService
+        );
 
         engine.run();
     }

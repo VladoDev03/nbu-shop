@@ -79,4 +79,9 @@ public class StoreServiceImpl implements StoreService {
     public double getTotalRevenue() {
         return storeRepo.getAllReceipts().stream().mapToDouble(Receipt::getTotalAmount).sum();
     }
+
+    @Override
+    public List<Receipt> getAllReceipts() {
+        return storeRepo.getAllReceipts();
+    }
 }

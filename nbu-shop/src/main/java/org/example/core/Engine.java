@@ -24,17 +24,20 @@ public class Engine {
     private CashierService cashierService;
     private ProductService productService;
     private StoreService storeService;
+    private ReceiptService receiptService;
 
     public Engine(
             IOFactory ioFactory,
             CashierService cashierService,
             ProductService productService,
-            StoreService storeService
+            StoreService storeService,
+            ReceiptService receiptService
     ) {
         this.ioFactory = ioFactory;
         this.cashierService = cashierService;
         this.productService = productService;
         this.storeService = storeService;
+        this.receiptService = receiptService;
     }
 
     public void run() throws InvalidIOType {
@@ -61,7 +64,7 @@ public class Engine {
         System.out.println("Input: " + inputType);
         System.out.println("Output: " + outputType);
 
-        StoreController controller = new StoreController(productService, cashierService, storeService);
+        StoreController controller = new StoreController(productService, cashierService, storeService, receiptService);
 
         ProgramInput input = ioFactory.CreateProgramInput(inputType);
         ProgramOutput output = ioFactory.CreateProgramOutput(outputType);
@@ -79,6 +82,7 @@ public class Engine {
             System.out.println("6. Receipts count");
             System.out.println("7. Products list");
             System.out.println("8. Cashiers list");
+            System.out.println("9. Receipts list");
             System.out.println("0. End program");
             commandChoice = Integer.parseInt(scanner.nextLine());
 
@@ -109,6 +113,9 @@ public class Engine {
                     break;
                 case 8:
                     controller.showCashiers();
+                    break;
+                case 9:
+                    controller.showReceipts();
                     break;
                 default:
                     System.out.println("PLease choose a command between 1 and 8.");
