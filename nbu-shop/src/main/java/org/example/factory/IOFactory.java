@@ -14,6 +14,21 @@ import org.example.io.json.JsonInput;
 import org.example.io.json.JsonOutput;
 
 public class IOFactory {
+    private static IOFactory instance;
+
+    private IOFactory() {}
+
+    public static IOFactory getInstance() {
+        if (instance == null) {
+            synchronized (IOFactory.class) {
+                if (instance == null) {
+                    instance = new IOFactory();
+                }
+            }
+        }
+        return instance;
+    }
+
     public ProgramInput CreateProgramInput(IOType type) throws InvalidIOType {
         switch (type) {
             case Console:

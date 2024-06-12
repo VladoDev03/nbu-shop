@@ -1,11 +1,51 @@
 package org.example.core;
 
 import org.example.enums.IOType;
+import org.example.exceptions.InvalidIOType;
+import org.example.factory.IOFactory;
+import org.example.io.contracts.ProgramInput;
+import org.example.io.contracts.ProgramOutput;
+import org.example.repository.contracts.CashierRepository;
+import org.example.repository.contracts.ProductRepository;
+import org.example.repository.contracts.StoreRepository;
+import org.example.service.contracts.CashierService;
+import org.example.service.contracts.ProductService;
+import org.example.service.contracts.ReceiptService;
+import org.example.service.contracts.StoreService;
 
 import java.util.Scanner;
 
 public class Engine {
-    public void run() {
+    private IOFactory ioFactory;
+    private CashierRepository cashierRepository;
+    private ProductRepository productRepository;
+    private StoreRepository storeRepository;
+    private CashierService cashierService;
+    private ProductService productService;
+    private ReceiptService receiptService;
+    private StoreService storeService;
+
+    public Engine(
+            IOFactory ioFactory,
+            CashierRepository cashierRepository,
+            ProductRepository productRepository,
+            StoreRepository storeRepository,
+            CashierService cashierService,
+            ProductService productService,
+            ReceiptService receiptService,
+            StoreService storeService
+    ) {
+        this.ioFactory = ioFactory;
+        this.cashierRepository = cashierRepository;
+        this.productRepository = productRepository;
+        this.storeRepository = storeRepository;
+        this.cashierService = cashierService;
+        this.productService = productService;
+        this.receiptService = receiptService;
+        this.storeService = storeService;
+    }
+
+    public void run() throws InvalidIOType {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("1: Input through console");
@@ -22,12 +62,15 @@ public class Engine {
         System.out.print("Your choice: ");
         int outputChoice = scanner.nextInt();
 
-        IOType input = IOType.fromChoice(inputChoice);
-        IOType output = IOType.fromChoice(outputChoice);
+        IOType inputType = IOType.fromChoice(inputChoice);
+        IOType outputType = IOType.fromChoice(outputChoice);
 
         System.out.println("You've selected the following input and output...");
-        System.out.println("Input: " + input);
-        System.out.println("Output: " + output);
+        System.out.println("Input: " + inputType);
+        System.out.println("Output: " + outputType);
+
+        ProgramInput input = ioFactory.CreateProgramInput(inputType);
+        ProgramOutput output = ioFactory.CreateProgramOutput(outputType);
 
         int commandChoice = 0;
         boolean isRunning = true;
