@@ -57,9 +57,6 @@ public class Main {
         // Initializing program engine
         Engine engine = new Engine(
                 ioFactory,
-                cashierRepository,
-                productRepository,
-                storeRepository,
                 cashierService,
                 productService,
                 receiptService,

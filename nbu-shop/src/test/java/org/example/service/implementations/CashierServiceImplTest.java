@@ -13,4 +13,12 @@ class CashierServiceImplTest {
     @Test
     void findCashierById() {
     }
+
+    @Test
+    void getAllCashiers() {
+    }
+
+    @Test
+    void getTotalCashierSalary() {
+    }
 }

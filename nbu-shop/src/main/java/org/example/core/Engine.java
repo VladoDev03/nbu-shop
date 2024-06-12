@@ -17,9 +17,6 @@ import java.util.Scanner;
 
 public class Engine {
     private IOFactory ioFactory;
-    private CashierRepository cashierRepository;
-    private ProductRepository productRepository;
-    private StoreRepository storeRepository;
     private CashierService cashierService;
     private ProductService productService;
     private ReceiptService receiptService;
@@ -27,18 +24,12 @@ public class Engine {
 
     public Engine(
             IOFactory ioFactory,
-            CashierRepository cashierRepository,
-            ProductRepository productRepository,
-            StoreRepository storeRepository,
             CashierService cashierService,
             ProductService productService,
             ReceiptService receiptService,
             StoreService storeService
     ) {
         this.ioFactory = ioFactory;
-        this.cashierRepository = cashierRepository;
-        this.productRepository = productRepository;
-        this.storeRepository = storeRepository;
         this.cashierService = cashierService;
         this.productService = productService;
         this.receiptService = receiptService;
@@ -81,7 +72,7 @@ public class Engine {
             System.out.println("2. Add new product");
             System.out.println("3. Employ new cashier");
             System.out.println("4. See total salaries");
-            System.out.println("5. See earnings");
+            System.out.println("5. See revenue");
             System.out.println("6. Receipts count");
             System.out.println("0. End program");
             commandChoice = scanner.nextInt();
@@ -100,13 +91,13 @@ public class Engine {
                     System.out.println("New Cashier");
                     break;
                 case 4:
-                    System.out.println("Salaries");
+                    System.out.println("The total cashier salary is: " + cashierService.getTotalCashierSalary() + "$");
                     break;
                 case 5:
-                    System.out.println("Earnings");
+                    System.out.println("The revenue of the store is: " + storeService.getTotalRevenue() + "$");
                     break;
                 case 6:
-                    System.out.println("Receipts");
+                    System.out.println("Total amout of receipts is: " + storeService.getTotalReceiptsCount());
                     break;
                 default:
                     System.out.println("PLease choose a command between 1 and 3.");
